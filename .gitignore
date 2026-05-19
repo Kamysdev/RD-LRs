@@ -1,0 +1,150 @@
+# =========================
+# Unity
+# =========================
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Unity generated files
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity cache
+sysinfo.txt
+*.stackdump
+
+# Unity Addressables
+[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# Unity auto-generated crash reports
+[Cc]rash[Rr]eports/
+
+# Unity Asset Store tools
+[Aa]ssets/AssetStoreTools*
+
+# Unity MemoryCaptures
+[Mm]emoryCaptures/
+
+# Unity Recordings
+[Rr]ecordings/
+
+# =========================
+# Unity meta files
+# =========================
+# ВАЖНО: .meta файлы НЕ игнорируем.
+# Они нужны Unity для сохранения ссылок на ассеты.
+#!*.meta
+
+
+# =========================
+# .NET / Avalonia
+# =========================
+
+bin/
+obj/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Visual Studio
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.assets.json
+
+# .NET test results
+TestResults/
+coverage/
+coverage.xml
+coverage.json
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+*.Publish.xml
+
+# Logs
+*.log
+logs/
+
+# =========================
+# Avalonia / XAML generated
+# =========================
+
+*.g.cs
+*.g.i.cs
+*.Designer.cs
+
+# =========================
+# OS files
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =========================
+# Environment / secrets
+# =========================
+
+.env
+.env.*
+!.env.example
+
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# =========================
+# Docker
+# =========================
+
+docker-compose.override.yml
+*.pid
+
+# =========================
+# Misc
+# =========================
+
+*.tmp
+*.bak
+*.swp
+*.orig

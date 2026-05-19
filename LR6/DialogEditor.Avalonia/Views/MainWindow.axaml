@@ -1,0 +1,341 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:DialogEditor.Avalonia.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="DialogEditor.Avalonia.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Width="1320"
+        Height="860"
+        MinWidth="1080"
+        MinHeight="700"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Dialog Editor">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="380,20,*" Margin="20">
+        <Border Grid.ColumnSpan="3"
+                Classes="card-tonal"
+                Padding="24">
+            <Grid ColumnDefinitions="*,340">
+                <StackPanel Spacing="10">
+                    <TextBlock Classes="headline-large"
+                               Text="Dialogue Tree Editor" />
+                    <TextBlock Classes="body-muted"
+                               MaxWidth="760"
+                               TextWrapping="Wrap"
+                               Text="Answers can now be built from structured clauses: stat increase, stat check, open door and end dialogue. The editor still keeps the raw action string compatible with the Unity runtime." />
+                </StackPanel>
+
+                <Border Grid.Column="1"
+                        Classes="card-high"
+                        Padding="18">
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="title-medium"
+                                   Text="Status" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding StatusText}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1"
+                Grid.Column="0"
+                Classes="card"
+                Margin="0,20,0,20"
+                Padding="20">
+            <Grid RowDefinitions="Auto,Auto,*,Auto">
+                <StackPanel Spacing="6">
+                    <TextBlock Classes="headline-medium"
+                               Text="Dialogue Tree" />
+                    <TextBlock Classes="body-muted"
+                               Text="Messages and nested answers are shown on the left." />
+                </StackPanel>
+
+                <WrapPanel Grid.Row="1" Margin="0,16,0,0">
+                    <Button Classes="filled"
+                            Margin="0,0,10,10"
+                            Click="AddMessageClick"
+                            Content="Add message" />
+                    <Button Classes="tonal"
+                            Margin="0,0,10,10"
+                            Click="AddAnswerClick"
+                            Content="Add answer" />
+                    <Button Classes="outlined"
+                            Margin="0,0,10,10"
+                            Click="ClearClick"
+                            Content="Clear" />
+                </WrapPanel>
+
+                <Border Grid.Row="2"
+                        Classes="card-high"
+                        Margin="0,16,0,0"
+                        Padding="12">
+                    <TreeView ItemsSource="{Binding TreeItems}"
+                              SelectionChanged="TreeSelectionChanged">
+                        <TreeView.Styles>
+                            <Style Selector="TreeViewItem">
+                                <Setter Property="Margin" Value="0,4" />
+                            </Style>
+                        </TreeView.Styles>
+                        <TreeView.DataTemplates>
+                            <TreeDataTemplate DataType="vm:MessageTreeItemViewModel"
+                                              ItemsSource="{Binding Children}">
+                                <Border Padding="12,10"
+                                        Background="{StaticResource PrimaryContainerBrush}"
+                                        CornerRadius="16">
+                                    <TextBlock FontWeight="SemiBold"
+                                               Foreground="{StaticResource OnPrimaryContainerBrush}"
+                                               Text="{Binding DisplayText}" />
+                                </Border>
+                            </TreeDataTemplate>
+                            <DataTemplate DataType="vm:AnswerTreeItemViewModel">
+                                <Border Padding="12,10"
+                                        Background="{StaticResource SecondaryContainerBrush}"
+                                        CornerRadius="16">
+                                    <TextBlock Text="{Binding DisplayText}" />
+                                </Border>
+                            </DataTemplate>
+                        </TreeView.DataTemplates>
+                    </TreeView>
+                </Border>
+
+                <WrapPanel Grid.Row="3" Margin="0,16,0,0">
+                    <Button Classes="filled"
+                            Margin="0,0,10,0"
+                            Click="SaveClick"
+                            Content="Save XML" />
+                    <Button Classes="outlined"
+                            Margin="0,0,10,0"
+                            Click="LoadClick"
+                            Content="Load XML" />
+                </WrapPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1"
+                Grid.Column="2"
+                Classes="card"
+                Margin="0,20,0,20"
+                Padding="22">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*">
+                    <StackPanel Spacing="6">
+                        <TextBlock Classes="headline-medium"
+                                   Text="Selected Node Editor" />
+                        <TextBlock Classes="body-muted"
+                                   Text="Text, linked message and action clauses are edited here." />
+                    </StackPanel>
+
+                    <Grid Grid.Row="1" Margin="0,18,0,0" ColumnDefinitions="*,*,*">
+                        <Border Classes="card-high" Padding="16">
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="body-muted" Text="Selected message" />
+                                <TextBlock Classes="headline-medium"
+                                           Text="{Binding SelectedMessageId}" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1"
+                                Classes="card-high"
+                                Margin="14,0,0,0"
+                                Padding="16">
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="body-muted" Text="Selected answer" />
+                                <TextBlock Classes="headline-medium"
+                                           Text="{Binding SelectedAnswerId}" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="2"
+                                Classes="card-high"
+                                Margin="14,0,0,0"
+                                Padding="16">
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="body-muted" Text="Linked message id" />
+                                <TextBlock Classes="headline-medium"
+                                           Text="{Binding LinkedMessageId}" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <StackPanel Grid.Row="2" Margin="0,18,0,0" Spacing="10">
+                        <TextBlock Classes="title-medium"
+                                   Text="Message or answer text" />
+                        <TextBox MinHeight="180"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 VerticalContentAlignment="Top"
+                                 Watermark="Enter text"
+                                 Text="{Binding EditorText, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <Border Grid.Row="3"
+                            Classes="card-high"
+                            Margin="0,18,0,0"
+                            Padding="18">
+                        <StackPanel Spacing="12">
+                            <TextBlock Classes="title-medium"
+                                       Text="Action clause builder" />
+                            <WrapPanel>
+                                <Button Classes="filled"
+                                        Margin="0,0,10,10"
+                                        Click="AddIncreaseClauseClick"
+                                        Content="Add stat increase" />
+                                <Button Classes="tonal"
+                                        Margin="0,0,10,10"
+                                        Click="AddCheckClauseClick"
+                                        Content="Add stat check" />
+                                <Button Classes="tonal"
+                                        Margin="0,0,10,10"
+                                        Click="AddOpenDoorClauseClick"
+                                        Content="Add open door" />
+                                <Button Classes="tonal"
+                                        Margin="0,0,10,10"
+                                        Click="AddEndDialogClauseClick"
+                                        Content="Add end dialogue" />
+                                <Button Classes="outlined"
+                                        Margin="0,0,10,10"
+                                        Click="AddCustomClauseClick"
+                                        Content="Add custom token" />
+                            </WrapPanel>
+
+                            <ItemsControl ItemsSource="{Binding ActionClauses}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ActionClauseViewModel">
+                                        <Border Classes="card"
+                                                Margin="0,0,0,12"
+                                                Padding="16">
+                                            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                                                <StackPanel Grid.ColumnSpan="2" Spacing="10">
+                                                    <ComboBox ItemsSource="{Binding ClauseTypes}"
+                                                              SelectedItem="{Binding SelectedType, Mode=TwoWay}">
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding DisplayName}" />
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
+
+                                                    <Grid IsVisible="{Binding ShowsStat}"
+                                                          ColumnDefinitions="*,140,120">
+                                                        <ComboBox ItemsSource="{Binding StatOptions}"
+                                                                  SelectedItem="{Binding SelectedStat, Mode=TwoWay}">
+                                                            <ComboBox.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding DisplayName}" />
+                                                                </DataTemplate>
+                                                            </ComboBox.ItemTemplate>
+                                                        </ComboBox>
+
+                                                        <ComboBox Grid.Column="1"
+                                                                  Margin="10,0,0,0"
+                                                                  IsVisible="{Binding ShowsOperator}"
+                                                                  ItemsSource="{Binding OperatorOptions}"
+                                                                  SelectedItem="{Binding SelectedOperator, Mode=TwoWay}">
+                                                            <ComboBox.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding DisplayName}" />
+                                                                </DataTemplate>
+                                                            </ComboBox.ItemTemplate>
+                                                        </ComboBox>
+
+                                                        <TextBox Grid.Column="2"
+                                                                 Margin="10,0,0,0"
+                                                                 Watermark="Value"
+                                                                 Text="{Binding ValueText, Mode=TwoWay}" />
+                                                    </Grid>
+
+                                                    <TextBox IsVisible="{Binding ShowsCustomToken}"
+                                                             Watermark="Custom action token"
+                                                             Text="{Binding CustomToken, Mode=TwoWay}" />
+
+                                                    <TextBlock Classes="body-muted"
+                                                               Text="{Binding PreviewText}" />
+                                                </StackPanel>
+
+                                                <Button Grid.Column="1"
+                                                        Classes="danger"
+                                                        Margin="12,0,0,0"
+                                                        VerticalAlignment="Top"
+                                                        Click="RemoveClauseClick"
+                                                        Content="Remove" />
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="4" Margin="0,18,0,0" Spacing="10">
+                        <TextBlock Classes="title-medium"
+                                   Text="Raw action string" />
+                        <TextBox AcceptsReturn="True"
+                                 MinHeight="90"
+                                 TextWrapping="Wrap"
+                                 Watermark="none"
+                                 Text="{Binding RawActionText, Mode=TwoWay}" />
+                        <WrapPanel>
+                            <Button Classes="tonal"
+                                    Margin="0,0,10,10"
+                                    Click="ParseRawActionClick"
+                                    Content="Parse raw action" />
+                            <Button Classes="outlined"
+                                    Margin="0,0,10,10"
+                                    Click="ResetActionsClick"
+                                    Content="Reset actions" />
+                        </WrapPanel>
+                        <TextBlock Classes="body-muted"
+                                   Text="{Binding SelectedActionDisplay}" />
+                    </StackPanel>
+
+                    <Border Grid.Row="5"
+                            Classes="card-high"
+                            Margin="0,18,0,0"
+                            Padding="18">
+                        <StackPanel Spacing="10">
+                            <TextBlock Classes="title-medium"
+                                       Text="Supported runtime tokens" />
+                            <TextBlock Classes="body-muted"
+                                       TextWrapping="Wrap"
+                                       Text="stat_inc:strength:1, stat_inc:intelligence:1, stat_inc:charisma:1, stat_check:strength:>=:2, door open, dialogue end." />
+                            <TextBlock Classes="body-muted"
+                                       TextWrapping="Wrap"
+                                       Text="Unknown tokens are preserved through the custom token clause or the raw action text box." />
+                        </StackPanel>
+                    </Border>
+
+                    <WrapPanel Grid.Row="6" Margin="0,18,0,0">
+                        <Button Classes="filled"
+                                Margin="0,0,12,12"
+                                Click="LinkClick"
+                                Content="Link answer to message" />
+                        <Button Classes="tonal"
+                                Margin="0,0,12,12"
+                                Click="UpdateClick"
+                                Content="Apply changes" />
+                        <Button Classes="danger"
+                                Margin="0,0,12,12"
+                                Click="DeleteClick"
+                                Content="Delete selected" />
+                    </WrapPanel>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+
+        <Border Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Classes="card-high"
+                Padding="16">
+            <TextBlock TextWrapping="Wrap"
+                       Text="{Binding StatusText}" />
+        </Border>
+    </Grid>
+</Window>

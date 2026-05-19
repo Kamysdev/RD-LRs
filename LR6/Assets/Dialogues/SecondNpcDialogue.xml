@@ -1,0 +1,8 @@
+<messages uid="12">
+  <message mid="10">Я тренирую либо силу, либо интеллект. Что тебе нужнее?
+    <answers>
+      <answer auid="11" muid="-1" action="stat_inc:strength:1;dialogue end">Нужна сила.</answer>
+      <answer auid="12" muid="-1" action="stat_inc:intelligence:1;dialogue end">Нужен интеллект.</answer>
+    </answers>
+  </message>
+</messages>

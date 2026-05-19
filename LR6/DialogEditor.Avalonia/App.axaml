@@ -1,0 +1,154 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DialogEditor.Avalonia.App"
+             xmlns:local="using:DialogEditor.Avalonia"
+             RequestedThemeVariant="Default">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <Color x:Key="PrimaryColor">#6750A4</Color>
+        <Color x:Key="OnPrimaryColor">#FFFFFF</Color>
+        <Color x:Key="PrimaryContainerColor">#EADDFF</Color>
+        <Color x:Key="OnPrimaryContainerColor">#21005D</Color>
+        <Color x:Key="SecondaryColor">#625B71</Color>
+        <Color x:Key="SecondaryContainerColor">#E8DEF8</Color>
+        <Color x:Key="TertiaryColor">#7D5260</Color>
+        <Color x:Key="TertiaryContainerColor">#FFD8E4</Color>
+        <Color x:Key="SurfaceColor">#FFFBFE</Color>
+        <Color x:Key="SurfaceContainerColor">#F3EDF7</Color>
+        <Color x:Key="SurfaceContainerHighColor">#ECE6F0</Color>
+        <Color x:Key="SurfaceContainerHighestColor">#E6E0E9</Color>
+        <Color x:Key="SurfaceVariantColor">#E7E0EC</Color>
+        <Color x:Key="OutlineColor">#79747E</Color>
+        <Color x:Key="OutlineVariantColor">#CAC4D0</Color>
+        <Color x:Key="OnSurfaceColor">#1D1B20</Color>
+        <Color x:Key="OnSurfaceVariantColor">#49454F</Color>
+        <Color x:Key="ErrorColor">#B3261E</Color>
+
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+        <SolidColorBrush x:Key="OnPrimaryBrush" Color="{StaticResource OnPrimaryColor}" />
+        <SolidColorBrush x:Key="PrimaryContainerBrush" Color="{StaticResource PrimaryContainerColor}" />
+        <SolidColorBrush x:Key="OnPrimaryContainerBrush" Color="{StaticResource OnPrimaryContainerColor}" />
+        <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+        <SolidColorBrush x:Key="SecondaryContainerBrush" Color="{StaticResource SecondaryContainerColor}" />
+        <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource TertiaryColor}" />
+        <SolidColorBrush x:Key="TertiaryContainerBrush" Color="{StaticResource TertiaryContainerColor}" />
+        <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}" />
+        <SolidColorBrush x:Key="SurfaceContainerBrush" Color="{StaticResource SurfaceContainerColor}" />
+        <SolidColorBrush x:Key="SurfaceContainerHighBrush" Color="{StaticResource SurfaceContainerHighColor}" />
+        <SolidColorBrush x:Key="SurfaceContainerHighestBrush" Color="{StaticResource SurfaceContainerHighestColor}" />
+        <SolidColorBrush x:Key="SurfaceVariantBrush" Color="{StaticResource SurfaceVariantColor}" />
+        <SolidColorBrush x:Key="OutlineBrush" Color="{StaticResource OutlineColor}" />
+        <SolidColorBrush x:Key="OutlineVariantBrush" Color="{StaticResource OutlineVariantColor}" />
+        <SolidColorBrush x:Key="OnSurfaceBrush" Color="{StaticResource OnSurfaceColor}" />
+        <SolidColorBrush x:Key="OnSurfaceVariantBrush" Color="{StaticResource OnSurfaceVariantColor}" />
+        <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <Style Selector="Application">
+            <Setter Property="TextElement.Foreground" Value="{StaticResource OnSurfaceBrush}" />
+        </Style>
+
+        <Style Selector="Window">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.headline-large">
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.headline-medium">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.title-medium">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="TextBlock.body-muted">
+            <Setter Property="Foreground" Value="{StaticResource OnSurfaceVariantBrush}" />
+        </Style>
+
+        <Style Selector="Border.card">
+            <Setter Property="CornerRadius" Value="28" />
+            <Setter Property="Background" Value="{StaticResource SurfaceContainerBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource OutlineVariantBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="Border.card-high">
+            <Setter Property="CornerRadius" Value="28" />
+            <Setter Property="Background" Value="{StaticResource SurfaceContainerHighBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource OutlineVariantBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="Border.card-tonal">
+            <Setter Property="CornerRadius" Value="28" />
+            <Setter Property="Background" Value="{StaticResource PrimaryContainerBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryContainerBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="18,12" />
+            <Setter Property="MinHeight" Value="44" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="Button.filled">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource OnPrimaryBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+        </Style>
+
+        <Style Selector="Button.tonal">
+            <Setter Property="Background" Value="{StaticResource SecondaryContainerBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource SecondaryContainerBrush}" />
+        </Style>
+
+        <Style Selector="Button.outlined">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource OutlineBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="{StaticResource ErrorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource OnPrimaryBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ErrorBrush}" />
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="Padding" Value="16,14" />
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource OutlineVariantBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="ComboBox">
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+        </Style>
+
+        <Style Selector="TreeView">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Application.Styles>
+</Application>

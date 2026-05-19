@@ -1,0 +1,9 @@
+<messages uid="25">
+  <message mid="20">Перед тобой закрытая дверь. Как попробуешь ее открыть?
+    <answers>
+      <answer auid="21" muid="-1" action="stat_check:strength:>=:2;door open;dialogue end">[Выбить дверь]</answer>
+      <answer auid="22" muid="-1" action="stat_check:intelligence:>=:2;door open;dialogue end">[Повернуть ручку]</answer>
+      <answer auid="23" muid="-1" action="dialogue end">Отойти.</answer>
+    </answers>
+  </message>
+</messages>

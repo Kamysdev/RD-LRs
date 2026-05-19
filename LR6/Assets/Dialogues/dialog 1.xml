@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<messages uid="2">
+  <message mid="1">Сообщение 1<answers><answer auid="2" muid="1" action="dialogue end">Ответ 1 для сообщения 1</answer></answers></message>
+</messages>

@@ -1,0 +1,13 @@
+<messages uid="9">
+  <message mid="1">Привет, герой. Я могу сделать тебя убедительнее.
+    <answers>
+      <answer auid="2" muid="3" action="none">Расскажи о себе.</answer>
+      <answer auid="3" muid="-1" action="stat_inc:charisma:1;dialogue end">Хочу стать харизматичнее.</answer>
+    </answers>
+  </message>
+  <message mid="3">Твоя харизма выросла. Возвращайся, если захочешь продолжить.
+    <answers>
+      <answer auid="4" muid="-1" action="dialogue end">Спасибо.</answer>
+    </answers>
+  </message>
+</messages>
