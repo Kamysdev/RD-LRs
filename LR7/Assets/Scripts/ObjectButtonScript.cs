@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ObjectButtonScript : MonoBehaviour
 {
     [SerializeField] private Image objectIcon;
-    [SerializeField] private Text objectName;
+    [SerializeField] private TMP_Text objectName;
 
     public void SetSprite(Sprite sprite)
     {

@@ -4,9 +4,14 @@ using UnityEngine;
 public class HighlightScript : MonoBehaviour
 {
     [SerializeField] private Renderer[] renderers;
-    [SerializeField] private Color color = Color.white;
+    [SerializeField] private Color selectionColor = Color.white;
+    [SerializeField] private Color collisionColor = Color.red;
 
     private readonly List<Material> materials = new();
+    private bool isHovered;
+    private bool isSelected;
+    private bool isColliding;
+    private Collider cachedCollider;
 
     private void Awake()
     {
@@ -15,6 +20,7 @@ public class HighlightScript : MonoBehaviour
             renderers = GetComponentsInChildren<Renderer>();
         }
 
+        cachedCollider = GetComponent<Collider>();
         materials.Clear();
 
         foreach (Renderer currentRenderer in renderers)
@@ -30,20 +36,77 @@ public class HighlightScript : MonoBehaviour
 
     public void ToggleHighlight(bool value)
     {
-        foreach (Material material in materials)
+        isSelected = value;
+        ApplyHighlight();
+    }
+
+    private void Update()
+    {
+        isColliding = CheckIntersection();
+        ApplyHighlight();
+    }
+
+    private bool CheckIntersection()
+    {
+        if (cachedCollider == null || !gameObject.activeInHierarchy)
         {
-            if (material == null)
+            return false;
+        }
+
+        Bounds bounds = cachedCollider.bounds;
+        Collider[] overlaps = Physics.OverlapBox(bounds.center, bounds.extents * 0.95f, transform.rotation);
+
+        foreach (Collider overlap in overlaps)
+        {
+            if (overlap == null || overlap == cachedCollider)
             {
                 continue;
             }
 
-            if (value)
+            if (overlap.transform.root == transform.root)
             {
-                material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", color);
+                continue;
             }
-            else
+
+            ObjectDescription otherObject = overlap.GetComponentInParent<ObjectDescription>();
+            if (otherObject == null)
             {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ApplyHighlight()
+    {
+        bool shouldHighlight = isHovered || isSelected || isColliding;
+        Color targetColor = isColliding ? collisionColor : selectionColor;
+
+        if (shouldHighlight)
+        {
+            foreach (Material material in materials)
+            {
+                if (material == null)
+                {
+                    continue;
+                }
+
+                material.EnableKeyword("_EMISSION");
+                material.SetColor("_EmissionColor", targetColor);
+            }
+        }
+        else
+        {
+            foreach (Material material in materials)
+            {
+                if (material == null)
+                {
+                    continue;
+                }
+
                 material.DisableKeyword("_EMISSION");
             }
         }
@@ -51,11 +114,13 @@ public class HighlightScript : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        ToggleHighlight(true);
+        isHovered = true;
+        ApplyHighlight();
     }
 
     private void OnMouseExit()
     {
-        ToggleHighlight(false);
+        isHovered = false;
+        ApplyHighlight();
     }
 }
